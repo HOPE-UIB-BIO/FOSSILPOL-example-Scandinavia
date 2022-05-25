@@ -153,10 +153,10 @@ dataset_type <- 'pollen'
 sel_var_element <- "pollen"
 
 # geographical limitation of data
-long_min <- -180 # [USER]
-long_max <- 180 # [USER]
-lat_min <- -90 # [USER]
-lat_max <- 90 # [USER]
+long_min <- 5 # [USER]
+long_max <- 30 # [USER]
+lat_min <- 55 # [USER]
+lat_max <- 73 # [USER]
 alt_min <- NA # [USER]
 alt_max <- NA # [USER]
 
@@ -196,7 +196,7 @@ chron_order <-
 #--------------------------------------------------#
 
 # Chronology needs to have at least X control points
-min_n_of_control_points <- 2 # [USER]
+min_n_of_control_points <- 5 # [USER]
 
 # If thickness of control point is missing, assign X cm
 default_thickness <- 1 # [USER]
@@ -233,11 +233,11 @@ iteration_multiplier <- 5 # [USER]
 filter_by_pollen_sum <- TRUE # [USER]
 
 # each level at least X individual pollen gains
-min_n_grains <- 0 # [USER]
+min_n_grains <- 100 # [USER]
 # ideal number of counts
-target_n_grains <- 100 # [USER]
+target_n_grains <- 150 # [USER]
 # threshold of number of samples with ideal counts
-percentage_samples <- 0 # [USER]
+percentage_samples <- 75 # [USER]
 
 #----------------------------------------#
 
@@ -252,7 +252,7 @@ filter_by_age_limit <- TRUE # [USER]
 filter_by_extrapolation <- TRUE # [USER]
 
 # how much age can be extrapolated beyond the oldest chronology control point
-maximum_age_extrapolation <- Inf # [USER]
+maximum_age_extrapolation <- 3000 # [USER]
 
 #----------------------------------------#
 
@@ -267,7 +267,7 @@ filter_by_interest_region <- TRUE # [USER]
 filter_by_number_of_levels <- TRUE # [USER]
 
 # at least X number levels within period of interest 
-min_n_levels <-  3  
+min_n_levels <-  5  
 
 #----------------------------------------#
 
