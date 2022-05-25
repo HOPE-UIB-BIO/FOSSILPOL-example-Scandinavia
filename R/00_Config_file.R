@@ -295,7 +295,7 @@ ggplot2::theme_set(ggplot2::theme_classic())
 # define general
 text_size = 16 # [USER]
 line_size = 0.1 # [USER]
-point_size = 3 # [USER]
+point_size = 1 # [USER]
 
 # define output sizes
 image_width <- 30 # [USER]
@@ -306,6 +306,11 @@ image_dpi <- 300 # [USER]
 # define pallets
 
 # define common colours
+dark_gray <- "gray30"
+normal_gray <- "gray50"
+light_gray <- "gray90"
+highlight_red <- "#f20253"
+highlight_orange <-"#ff9715"
 
 
 #----------------------------------------------------------#
