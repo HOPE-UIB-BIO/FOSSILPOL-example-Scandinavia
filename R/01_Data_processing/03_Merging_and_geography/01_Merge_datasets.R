@@ -106,12 +106,12 @@ optional_info_to_assign <-
     
     ## Here is a space for user to add any additional information
     
-    ## example of WWF biomes
-    # "wwf_biome",
-    # "shapefile",
-    # paste0(current_dir, "/Data/Input/Spatial/Biomes_shapefile/WWF"),
-    # "wwf_terr_biomes",
-    # "BIOM_NAME"
+    # example of WWF biomes
+    "wwf_biome",
+    "shapefile",
+    paste0(current_dir, "/Data/Input/Spatial/Biomes_shapefile/WWF"),
+    "wwf_terr_biomes",
+    "BIOM_NAME"
     
     
     ## General shapefile example
