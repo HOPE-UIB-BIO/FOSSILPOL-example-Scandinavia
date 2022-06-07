@@ -91,7 +91,7 @@ current_dir <- here::here()
 fun_list <- 
   list.files(
     path = "R/Functions/",
-    pattern = "*.R",
+    pattern = ".R",
     recursive = TRUE) 
 
 # source them
