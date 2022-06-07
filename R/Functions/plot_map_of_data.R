@@ -64,7 +64,10 @@ plot_map_of_data <-
           y = lat
         )
       ) +
-      ggplot2::borders(fill = map_fill, colour = map_border)+
+      ggplot2::borders(
+        fill = map_fill,
+        colour = map_border,
+        size = line_size)+
       ggplot2::geom_point(
         size = point_size,
         alpha = point_alpha,
