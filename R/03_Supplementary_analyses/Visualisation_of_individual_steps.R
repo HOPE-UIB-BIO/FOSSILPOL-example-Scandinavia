@@ -27,11 +27,8 @@ source(
 current_env <- environment()
 
 # install additional packages
-utils::install.packages("wordcloud")
-utils::install.packages("tm")
 utils::install.packages("ggpubr")
 utils::install.packages("RColorBrewer")
-library(wordcloud)
 library(ggpubr)
 library(RColorBrewer)
 
@@ -58,9 +55,9 @@ p0 <-
     data_source = neotoma_meta_samples,
     text_size = text_size, #[config_criteria]
     point_size = (point_size - 0.5),  #[config_criteria]
-    point_alpha = 0.5,
+    point_alpha = 0.7,
     line_size = line_size,  #[config_criteria]
-    point_colour = normal_gray, #[config_criteria]
+    point_colour = dark_gray, #[config_criteria]
     map_fill = light_gray, #[config_criteria]
     map_border = normal_gray #[config_criteria]
   )
@@ -72,15 +69,15 @@ p0 <-
       data_source = neotoma_meta_samples,
       text_size = text_size, #[config_criteria]
       point_size = point_size,  #[config_criteria]
-      point_alpha = 0.5,
+      point_alpha = 0.7,
       line_size = line_size,  #[config_criteria]
-      point_colour = dark_gray, #[config_criteria]
+      point_colour = highlight_orange, #[config_criteria]
       map_fill = light_gray, #[config_criteria]
       map_border = normal_gray #[config_criteria]
     ) +
-    ggplot2::labs(
-      caption = paste("Number of datasets =", nrow(neotoma_meta_samples))
-    ) +
+    # ggplot2::labs(
+    #   caption = paste("Number of datasets =", nrow(neotoma_meta_samples))
+    # ) +
     ggplot2::geom_rect(
       ggplot2::aes(
         xmin = long_min,#[config_criteria]
@@ -90,18 +87,10 @@ p0 <-
       ),
       fill = NA,
       colour = highlight_red, #[config_criteria]
-      size = 1
-    )+
-    ggplot2::ggtitle("Filter by geographical location")
+      size = line_size
+    )
+  # + ggplot2::ggtitle("Filter by geographical location")
 )
-
-ggplot2::ggsave(
-  plot = p1,
-  filename = paste0(current_dir, "/Outputs/Figures/Supplementary/Individual_steps/01-download.pdf"),
-  width = 12,
-  height = 17,
-  units = image_units,
-  dpi = image_dpi)
 
 
 #----------------------------------------------------------#
@@ -125,23 +114,15 @@ RFossilpol::util_check_if_loaded(
     p0 +
     ggplot2::geom_point(
       data = neotoma_processed,
-      colour = highlight_red, #[config_criteria],
+      colour = highlight_orange, #[config_criteria],
       alpha = 0.7,
       size = point_size
-    )+
-    ggplot2::labs(
-      caption = paste("Number of datasets =", nrow(neotoma_processed))
-    ) +
-    ggplot2::ggtitle("Neotoma processed")
+    )
+  # ggplot2::labs(
+  #   caption = paste("Number of datasets =", nrow(neotoma_processed))
+  # ) +
+  # ggplot2::ggtitle("Neotoma processed")
 )
-
-ggplot2::ggsave(
-  plot = p2,
-  filename = paste0(current_dir, "/Outputs/Figures/Supplementary/Individual_steps/02-neotoma_processed.pdf"),
-  width = 12,
-  height = 17,
-  units = image_units,
-  dpi = image_dpi)
 
 
 #----------------------------------------------------------#
@@ -165,135 +146,16 @@ RFossilpol::util_check_if_loaded(
     p0 +
     ggplot2::geom_point(
       data = data_with_chronologies,
-      colour = highlight_red, #[config_criteria],
+      colour = highlight_orange, #[config_criteria],
       alpha = 0.7,
       size = point_size
-    )+
-    ggplot2::labs(
-      caption = paste("Number of datasets =", nrow(data_with_chronologies))
-    ) +
-    ggplot2::ggtitle("Data with chronologies")
-)
-
-ggplot2::ggsave(
-  plot = p3,
-  filename = paste0(current_dir, "/Outputs/Figures/Supplementary/Individual_steps/03-chronologies.pdf"),
-  width = 12,
-  height = 17,
-  units = image_units,
-  dpi = image_dpi)
-
-# ├ 4.1 chronology control point numbers example  -----
-(
-  p4 <-
-    plot_map_of_data(
-      data_source = data_with_chronologies,
-      text_size = text_size, #[config_criteria]
-      point_size = 1,  #[config_criteria]
-      point_alpha = 1,
-      line_size = line_size,  #[config_criteria]
-      point_colour = light_gray, #[config_criteria]
-      map_fill = light_gray #[config_criteria]
-    ) +
-    ggplot2::geom_point(
-      ggplot2::aes(
-        col = n_chron_control, 
-        size = n_chron_control ),
-      alpha = 0.75
-    )+
-    ggplot2::scale_size_continuous(
-      trans = "log"
-    ) +
-    ggplot2::scale_colour_gradient(
-      trans = "log",
-      low = normal_gray, #[config_criteria]
-      high = highlight_orange #[config_criteria]
-    ) +
-    ggplot2::guides(
-      colour = "none",
-      size = "none"
-    )+
-    ggplot2::ggtitle("Number of chron.control points")
-)
-
-
-ggplot2::ggsave(
-  plot = p4,
-  filename = paste0(current_dir, "/Outputs/Figures/Supplementary/Individual_steps/04-chron_control_points.pdf"),
-  width = 12,
-  height = 17,
-  units = image_units,
-  dpi = image_dpi)
-
-
-# ├ 4.4 Age-depth models example  -----
-
-#load bchron models
-chron_mod_output <- 
-  readr::read_rds(
-    paste0(data_storage_path, 
-           "/Data/Processed/Chronology/Models_full/chron_mod_output-2022-05-25.rds"
     )
-  )
-
-# select first 25
-chron_mod_output_example <-
-  chron_mod_output %>% 
-  dplyr::slice(1:25)
-
-# to clean the memory
-rm(chron_mod_output)
-
-ad_plot_list <-
-  purrr::map2(
-    .x = chron_mod_output_example$bchron_mod,
-    .y = chron_mod_output_example$dataset_id,
-    .f = ~ plot(.x) + 
-      ggplot2::theme_classic() + 
-      ggplot2::theme(
-        text = ggplot2::element_text(
-          size = text_size
-        ),
-        line = ggplot2::element_line(
-          size = line_size
-        ),
-        axis.title = element_blank(),
-        axis.ticks = element_blank(),
-        axis.text = element_blank()
-      )+
-      ggplot2::labs(
-        caption = .y)
-  )
-
-(
-  p5 <-
-    ggpubr::ggarrange(
-      plotlist = ad_plot_list,
-      nrow = 5,
-      ncol = 5
-    ) %>% 
-    ggpubr::annotate_figure(
-      p = .,
-      left = ggpubr::text_grob(
-        label ="Depth (cm)",
-        size = text_size,
-        rot = 90
-      ),
-      bottom = ggpubr::text_grob(
-        label = "Age (cal years BP)",
-        size = text_size
-      )
-    )
+  # ggplot2::labs(
+  #   caption = paste("Number of datasets =", nrow(data_with_chronologies))
+  # ) +
+  # ggplot2::ggtitle("Data with chronologies")
 )
 
-
-ggplot2::ggsave(
-  plot = p5,
-  filename = paste0(current_dir, "/Outputs/Figures/Supplementary/Individual_steps/05-ad_models.pdf"),
-  width = 35,
-  height = 17,
-  units = image_units,
-  dpi = image_dpi)
 
 #----------------------------------------------------------#
 # 5. Main filtering-----
@@ -312,29 +174,24 @@ RFossilpol::util_check_if_loaded(
 
 
 (
-  p6 <-
+  p4 <-
     p0 +
     ggplot2::geom_point(
       data = data_assembly,
-      colour = highlight_red, #[config_criteria],
+      colour = highlight_orange, #[config_criteria],
       alpha = 0.7,
       size = point_size
-    )+
-    ggplot2::labs(
-      caption = paste("Number of datasets =", nrow(data_assembly))
-    ) +
-    ggplot2::ggtitle("Filtered data")
+    )
+  # ggplot2::labs(
+  #   caption = paste("Number of datasets =", nrow(data_assembly))
+  # ) +
+  # ggplot2::ggtitle("Filtered data")
 )
 
-ggplot2::ggsave(
-  plot = p6,
-  filename = paste0(current_dir, "/Outputs/Figures/Supplementary/Individual_steps/06-filtered.pdf"),
-  width = 12,
-  height = 17,
-  units = image_units,
-  dpi = image_dpi)
 
-# ├ 5.1 Number of sequences example -----
+#----------------------------------------------------------#
+# 6. Number of sequences -----
+#----------------------------------------------------------#
 
 data_step_size <-
   tibble::tibble(
@@ -353,7 +210,7 @@ data_step_size <-
   )
 
 (
-  p7 <- 
+  p5 <- 
     data_step_size %>% 
     ggplot2::ggplot(
       ggplot2::aes(
@@ -400,22 +257,56 @@ data_step_size <-
     )
 )
 
+#----------------------------------------------------------#
+# 7. Data filtering plot -----
+#----------------------------------------------------------#
+
+p_merge <-
+  ggpubr::ggarrange(
+    p1 + 
+      ggpubr::rremove("xylab"),
+    p2 + 
+      ggpubr::rremove("xylab"),
+    p3 + 
+      ggpubr::rremove("xylab"),
+    p4 + 
+      ggpubr::rremove("xylab"),
+    nrow = 1,
+    ncol = 4,
+    labels = LETTERS[1:4]
+  ) %>% 
+  ggpubr::annotate_figure(
+    ., 
+    left = ggpubr::text_grob("Latitude", rot = 90, size = text_size),
+    bottom = ggpubr::text_grob("Longitude", size = text_size)
+  )
+
+(
+  p_fin <-
+    ggpubr::ggarrange(
+      p_merge,
+      p7,
+      nrow = 2,
+      ncol = 1,
+      heights = c(1, 0.3),
+      labels = c("", "E"))
+)
+
 ggplot2::ggsave(
-  plot = p7,
-  filename = paste0(current_dir, "/Outputs/Figures/Supplementary/Individual_steps/07-steps.pdf"),
-  width = 18,
-  height = 10,
+  plot = p_fin,
+  filename = paste0(current_dir, "/Outputs/Figures/Supplementary/Data_filtering.pdf"),
+  width = 25,
+  height = 12,
   units = image_units,
   dpi = image_dpi)
 
 
 #----------------------------------------------------------#
-# 6. Additional features-----
+# 8. Data spatio-temporal distribution -----
 #----------------------------------------------------------#
 
-# ├ 6.1 WWF biome example -----
-
-res <- 0.25
+# get the WWF biomes
+res <- 0.1
 
 biome_data <-
   # create a data.frame with all points for `res`
@@ -465,7 +356,7 @@ biome_palette <-
 
 
 (
-  p8 <-
+  p6 <-
     biome_data %>% 
     ggplot2::ggplot(
       ggplot2::aes(
@@ -511,7 +402,7 @@ biome_palette <-
 )
 
 (
-  p9 <-
+  p7 <-
     data_assembly_wwf %>% 
     dplyr::count(wwf_biome) %>% 
     ggplot2::ggplot(
@@ -528,7 +419,8 @@ biome_palette <-
       ggplot2::aes(label = wwf_biome),
       angle= 90,
       hjust = 0,
-      nudge_y = 2
+      nudge_y = 2,
+      size = 2
     )+
     ggplot2::coord_cartesian(
       ylim = c(0, 80)
@@ -551,16 +443,55 @@ biome_palette <-
     )
 )
 
-p10 <-
-  ggpubr::ggarrange(
-    p8, p9
+p8 <-
+  data_assembly_wwf %>% 
+  ggplot2::ggplot(
+    ggplot2::aes(
+      y = forcats::fct_reorder(dataset_id, wwf_biome), 
+      x = age_min)
+  ) +
+  ggplot2::geom_segment(
+    ggplot2::aes(
+      yend = dataset_id,
+      xend = age_max,
+      col = wwf_biome
+    )
+  ) +
+  ggplot2::scale_color_manual(
+    values = biome_palette
+  ) +
+  ggplot2::scale_x_continuous(
+    trans = "reverse"
+  ) +
+  ggplot2::theme_classic()+
+  ggplot2::theme(
+    line = ggplot2::element_line(size = line_size),
+    text = ggplot2::element_text(size = text_size),
+    legend.position = "none",
+    axis.line.y = ggplot2::element_blank(),
+    axis.text.y = ggplot2::element_blank(),
+    axis.ticks.y = ggplot2::element_blank()
+  )+
+  ggplot2::labs(
+    y = "Datasets",
+    x = "Age (cal yr BP)"
+    
   )
 
+(
+  p_spatio_temporal_dist <-
+    ggpubr::ggarrange(
+      p6, p7, p8,
+      nrow = 1,
+      ncol = 3,
+      labels = LETTERS[1:3]
+    )
+)
 
 ggplot2::ggsave(
-  plot = p10,
-  filename = paste0(current_dir, "/Outputs/Figures/Supplementary/Individual_steps/10-wwf.pdf"),
+  plot = p_spatio_temporal_dist,
+  filename = paste0(current_dir, "/Outputs/Figures/Supplementary/Spatio_temporal_dist.pdf"),
   width = 20,
-  height = 17,
+  height = 10,
   units = image_units,
   dpi = image_dpi)
