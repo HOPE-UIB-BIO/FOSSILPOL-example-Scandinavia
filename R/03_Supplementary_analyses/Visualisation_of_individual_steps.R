@@ -32,6 +32,9 @@ utils::install.packages("RColorBrewer")
 library(ggpubr)
 library(RColorBrewer)
 
+map_margin <- 1.5
+map_res <- 0.1
+
 #----------------------------------------------------------#
 # 2. Neotoma data download -----
 #----------------------------------------------------------#
@@ -53,31 +56,26 @@ RFossilpol::util_check_if_loaded(
 p0 <-
   plot_map_of_data(
     data_source = neotoma_meta_samples,
+    margin = map_margin,
     text_size = text_size, #[config_criteria]
     point_size = (point_size - 0.5),  #[config_criteria]
     point_alpha = 0.7,
     line_size = line_size,  #[config_criteria]
-    point_colour = dark_gray, #[config_criteria]
-    map_fill = light_gray, #[config_criteria]
-    map_border = normal_gray #[config_criteria]
+    point_colour = col_gray_dark, #[config_criteria]
+    map_fill = col_gray_light, #[config_criteria]
+    map_border = col_gray_middle #[config_criteria]
   )
 
 
 (
   p1 <-
-    plot_map_of_data(
-      data_source = neotoma_meta_samples,
-      text_size = text_size, #[config_criteria]
-      point_size = point_size,  #[config_criteria]
-      point_alpha = 0.7,
-      line_size = line_size,  #[config_criteria]
-      point_colour = highlight_orange, #[config_criteria]
-      map_fill = light_gray, #[config_criteria]
-      map_border = normal_gray #[config_criteria]
-    ) +
-    # ggplot2::labs(
-    #   caption = paste("Number of datasets =", nrow(neotoma_meta_samples))
-    # ) +
+    p0 +
+    ggplot2::geom_point(
+      data = neotoma_meta_samples,
+      colour = palette_shades[1], #[config_criteria],
+      alpha = 0.7,
+      size = point_size
+    )+
     ggplot2::geom_rect(
       ggplot2::aes(
         xmin = long_min,#[config_criteria]
@@ -86,7 +84,7 @@ p0 <-
         ymax = lat_max #[config_criteria]
       ),
       fill = NA,
-      colour = highlight_red, #[config_criteria]
+      colour = col_compl_blue, #[config_criteria]
       size = line_size
     )
   # + ggplot2::ggtitle("Filter by geographical location")
@@ -114,7 +112,7 @@ RFossilpol::util_check_if_loaded(
     p0 +
     ggplot2::geom_point(
       data = neotoma_processed,
-      colour = highlight_orange, #[config_criteria],
+      colour = palette_shades[2], #[config_criteria],
       alpha = 0.7,
       size = point_size
     )
@@ -146,7 +144,7 @@ RFossilpol::util_check_if_loaded(
     p0 +
     ggplot2::geom_point(
       data = data_with_chronologies,
-      colour = highlight_orange, #[config_criteria],
+      colour = palette_shades[3], #[config_criteria],
       alpha = 0.7,
       size = point_size
     )
@@ -178,7 +176,7 @@ RFossilpol::util_check_if_loaded(
     p0 +
     ggplot2::geom_point(
       data = data_assembly,
-      colour = highlight_orange, #[config_criteria],
+      colour = palette_shades[4], #[config_criteria],
       alpha = 0.7,
       size = point_size
     )
@@ -241,8 +239,8 @@ data_step_size <-
     )+
     ggplot2::scale_colour_gradient(
       trans = "log",
-      high = normal_gray, #[config_criteria]
-      low = highlight_orange #[config_criteria]
+      high = palette_shades[1], #[config_criteria]
+      low = palette_shades[5] #[config_criteria]
     ) +
     ggplot2::coord_cartesian(
       ylim = c(0,1 )
@@ -252,8 +250,8 @@ data_step_size <-
       size = "none"
     )+
     ggplot2::theme_void()+
-    theme(
-      text = element_text(size = text_size)
+    ggplot2::theme(
+      text =  ggplot2::element_text(size = text_size)
     )
 )
 
@@ -285,7 +283,7 @@ p_merge <-
   p_fin <-
     ggpubr::ggarrange(
       p_merge,
-      p7,
+      p5,
       nrow = 2,
       ncol = 1,
       heights = c(1, 0.3),
@@ -306,13 +304,11 @@ ggplot2::ggsave(
 #----------------------------------------------------------#
 
 # get the WWF biomes
-res <- 0.1
-
 biome_data <-
-  # create a data.frame with all points for `res`
+  # create a data.frame with all points for `map_res`
   expand.grid(
-    long = seq(long_min, long_max ,res),
-    lat = seq(lat_min, lat_max, res)
+    long = seq(long_min - map_margin, long_max + map_margin,map_res),
+    lat = seq(lat_min - map_margin, lat_max + map_margin, map_res)
   ) %>% 
   # assign information for calibration curves 
   RFossilpol::geo_assign_value(
@@ -339,21 +335,15 @@ data_assembly_wwf <-
   tidyr::drop_na(wwf_biome)
 
 biomes_vec <-
-  biome_data %>%
+  data_assembly_wwf %>%
   purrr::pluck("wwf_biome") %>% 
   unique()
 
-n_biomes <-
-  biomes_vec %>% 
-  length()
-
 biome_palette <- 
-  colorRampPalette(
-    RColorBrewer::brewer.pal(8, "Set1"))(n_biomes) %>% 
+  palette_generic[1:length(biomes_vec)] %>% 
   purrr::set_names(
     nm = biomes_vec
   )
-
 
 (
   p6 <-
@@ -367,12 +357,17 @@ biome_palette <-
     ) +
     ggplot2::geom_tile(
       colour = NA,
-      alpha = 0.5
+      alpha = 0.75
+    ) +
+    ggplot2::borders(
+      size = line_size,  #[config_criteria]
+      fill  = NA, 
+      colour = col_gray_middle #[config_criteria]
     ) +
     ggplot2::geom_point(
       data = data_assembly_wwf,
       size = point_size + 1,
-      color = dark_gray
+      color = col_gray_dark
     )+
     ggplot2::geom_point(
       data = data_assembly_wwf,
@@ -384,10 +379,12 @@ biome_palette <-
       ylim = c(lat_min, lat_max)
     ) +
     ggplot2::scale_color_manual(
-      values = biome_palette
+      values = biome_palette,
+      na.value = col_gray_light
     ) +
     ggplot2::scale_fill_manual(
-      values = biome_palette
+      values = biome_palette,
+      na.value = col_gray_light
     ) +
     ggplot2::theme_classic()+
     ggplot2::theme(
@@ -413,7 +410,8 @@ biome_palette <-
     ggplot2::geom_bar(
       ggplot2::aes(fill = wwf_biome),
       stat = "identity",
-      colour = normal_gray
+      colour = col_gray_dark,
+      size = line_size
     )+
     ggplot2::geom_text(
       ggplot2::aes(label = wwf_biome),
@@ -426,36 +424,50 @@ biome_palette <-
       ylim = c(0, 80)
     )+
     ggplot2::scale_fill_manual(
-      values = biome_palette
+      values = biome_palette,
+      guide = ggplot2::guide_legend(
+        nrow = 2,
+        byrow = TRUE
+      )
     )+
     ggplot2::theme_classic()+
     ggplot2::theme(
       line = ggplot2::element_line(size = line_size),
       text = ggplot2::element_text(size = text_size),
-      legend.position = "none",
+      legend.position = "bottom",
       axis.line.x = ggplot2::element_blank(),
       axis.text.x = ggplot2::element_blank(),
       axis.ticks.x = ggplot2::element_blank(),
       axis.title.x = ggplot2::element_blank()
     )+
     ggplot2::labs(
-      y = "Number of datatasets"
+      y = "Number of datatasets",
+      fill = "WWF biome"
     )
 )
 
 p8 <-
-  data_assembly_wwf %>% 
+  data_assembly_wwf %>%
+  dplyr::select(wwf_biome, dataset_id, age_min, age_max) %>% 
+  tidyr::pivot_longer(
+    cols = -c(wwf_biome, dataset_id)
+  ) %>% 
+  dplyr::arrange(wwf_biome, dataset_id) %>%
+  dplyr::mutate(
+    dataset_id = as.factor(dataset_id),
+    wwf_biome_num = as.numeric(as.factor(wwf_biome))
+  ) %>% 
   ggplot2::ggplot(
     ggplot2::aes(
-      y = forcats::fct_reorder(dataset_id, wwf_biome), 
-      x = age_min)
+      y = forcats::fct_reorder(dataset_id, wwf_biome_num), 
+      x = value)
   ) +
-  ggplot2::geom_segment(
+  ggplot2::geom_line(
     ggplot2::aes(
-      yend = dataset_id,
-      xend = age_max,
+      group = dataset_id,
       col = wwf_biome
-    )
+    ),
+    size = 1
   ) +
   ggplot2::scale_color_manual(
     values = biome_palette
@@ -478,15 +490,25 @@ p8 <-
     
   )
 
+p_spatio_temporal_dist_merge <-
+  ggpubr::ggarrange(
+    p6, p7 + ggplot2::guides(fill = "none"), p8,
+    nrow = 1,
+    ncol = 3,
+    labels = LETTERS[1:3]
+  )
+
 (
   p_spatio_temporal_dist <-
     ggpubr::ggarrange(
-      p6, p7, p8,
-      nrow = 1,
-      ncol = 3,
-      labels = LETTERS[1:3]
+      p_spatio_temporal_dist_merge,
+      ggpubr::get_legend(p7),
+      nrow = 2,
+      ncol = 1,
+      heights = c(1, 0.2)
     )
 )
+
 
 ggplot2::ggsave(
   plot = p_spatio_temporal_dist,

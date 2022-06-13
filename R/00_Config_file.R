@@ -303,15 +303,41 @@ image_height <- 15 # [USER]
 image_units <- "cm" # [USER]
 image_dpi <- 300 # [USER]
 
-# define pallets
 
 # define common colours
-dark_gray <- "gray30"
-normal_gray <- "gray50"
-light_gray <- "gray90"
-highlight_red <- "#f20253"
-highlight_orange <-"#ff9715"
 
+col_gray_dark <- "gray30"
+col_gray_middle <- "gray50"
+col_gray_light <- "gray90"
+
+## main colour
+col_orange_dark <- "#E17D00"
+col_orange_light <-"#ff9715"
+
+##complementary
+col_compl_blue <-  "#00507B"
+
+## analogous
+col_ana_red <- "#FF2215"
+
+# define pallets
+palette_generic <-
+  c(
+    "#FF9715",
+    "#FF685F",
+    "#D3588B",
+    "#8C5C99",
+    "#4A5783"
+  )
+
+palette_shades <-
+  c(
+    "#570200",
+    "#7B2B00",
+    "#A54E00",
+    "#D17200",
+    "#FF9715"
+  )
 
 #----------------------------------------------------------#
 # 7. Save current config setting -----
