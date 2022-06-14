@@ -340,7 +340,7 @@ biomes_vec <-
   unique()
 
 biome_palette <- 
-  palette_generic[1:length(biomes_vec)] %>% 
+  colorRampPalette(c(palette_generic))(length(biomes_vec)) %>% 
   purrr::set_names(
     nm = biomes_vec
   )
@@ -435,13 +435,15 @@ biome_palette <-
       line = ggplot2::element_line(size = line_size),
       text = ggplot2::element_text(size = text_size),
       legend.position = "bottom",
+      legend.text = ggplot2::element_text(size = text_size * 0.5),
+      legend.title = ggplot2::element_text(size = text_size * 0.75),
       axis.line.x = ggplot2::element_blank(),
       axis.text.x = ggplot2::element_blank(),
       axis.ticks.x = ggplot2::element_blank(),
       axis.title.x = ggplot2::element_blank()
     )+
     ggplot2::labs(
-      y = "Number of datatasets",
+      y = "Number of datasets",
       fill = "WWF biome"
     )
 )

@@ -108,11 +108,14 @@ long_seq <-
   seq(-180, 180, 30)
 
 n_seq <- 
-  c(5, 10, 20, 50, 150, 250)
+  c(1, 5, 10, 20, 50, 150, 250)
 
-bin_palette <-
-  colorRampPalette(c(palette_shades[1], palette_shades[5]))(length(n_seq)) %>% 
-  purrr::set_names(as.character(n_seq))
+seq_labels <-
+  paste(n_seq[-length(n_seq)], n_seq[-1], sep = "-")
+
+bin_palette_geo <-
+  colorRampPalette(c(palette_matching))(length(n_seq)-1) %>% 
+  purrr::set_names(as.character(n_seq[-length(n_seq)]))
 
 dat_geo <-
   datasets_full %>% 
@@ -157,7 +160,8 @@ dat_geo <-
     ggplot2::scale_y_continuous(breaks = lat_seq)+
     ggplot2::scale_x_continuous(breaks = long_seq)+
     ggplot2::scale_fill_manual(
-      values = bin_palette,
+      values = bin_palette_geo,
+      labels = seq_labels,
       guide = ggplot2::guide_legend(
         nrow = 2,
         byrow = TRUE
@@ -166,7 +170,7 @@ dat_geo <-
     ggplot2::labs(
       x = "Longitude",
       y = "Latitude",
-      fill = "The number of sequences \nper 3 degree"
+      fill = "The number of sequences \nper 3 degrees"
     )+
     ggplot2::theme_classic()+
     ggplot2::theme(
@@ -225,7 +229,10 @@ time_bins_counts <-
   dplyr::arrange(N) %>% 
   dplyr::mutate(
     row_n = dplyr::row_number())
-  
+
+bin_palette_temp <-
+  colorRampPalette(c(col_orange_dark, col_orange_light))(nrow(time_bins_counts)) %>% 
+  purrr::set_names(as.character(time_bins_counts$N))
 
 (p2 <-
     time_bins_counts %>% 
@@ -234,7 +241,7 @@ time_bins_counts <-
                    x = row_n)
     ) +
     ggplot2::geom_bar(
-      ggplot2::aes(fill = N),
+      ggplot2::aes(fill = as.factor(N)),
       stat = "identity",
       colour = col_gray_dark,
       size = line_size
@@ -242,9 +249,8 @@ time_bins_counts <-
     ggplot2::scale_x_continuous(
       breaks = time_bins_counts$row_n,
       labels = time_bins_counts$name)+
-    ggplot2::scale_fill_gradient(
-      high = palette_shades[5], #[config_criteria]
-      low = palette_shades[1]  #[config_criteria]
+    ggplot2::scale_fill_manual(
+      values = bin_palette_temp
     )+
     ggplot2::labs(
       x = "Age (cal yr BP)",
@@ -254,13 +260,14 @@ time_bins_counts <-
       legend.position = "none",
       text = ggplot2::element_text(size = text_size),
       line = ggplot2::element_line(size = line_size),
-      axis.text.x = element_text(
-        size = text_size,
+      axis.text.x = ggplot2::element_text(
+        size = text_size * 0.75,
         angle = 90,
         vjust = 0.5,
         hjust = 0.9)
     )
 )
+
 
 (p_fin <-
     ggpubr::ggarrange(
