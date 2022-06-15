@@ -81,12 +81,12 @@ datasets_full <-
     lat <= 90 & lat >= -90) %>% 
   dplyr::filter(
     long <= 180 & long >= -180) %>% 
+  dplyr::filter(ageold < 50e3) %>% 
+  dplyr::filter(ageyoung > -75) %>%
   dplyr::mutate(
     agemean = (ageold + ageyoung)/2,
     age_dif = ageold - ageyoung) %>% 
-  dplyr::filter(age_dif > 0) %>% 
-  dplyr::filter(ageyoung > -75) %>% 
-  dplyr::filter(ageold < 50e3) %>% 
+  dplyr::filter(age_dif >= 100) %>% 
   dplyr::arrange(agemean) %>% 
   dplyr::mutate(
     row_n = dplyr::row_number()) 
