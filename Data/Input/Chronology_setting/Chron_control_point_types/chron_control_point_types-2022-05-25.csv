@@ -1,0 +1,16 @@
+chroncontroltype,include,calibrate
+Annual laminations (varves),TRUE,FALSE
+"Biostratigraphic, pollen",FALSE,FALSE
+"Biostratigraphic, pollen, Allerød/Younger Dryas",FALSE,FALSE
+"Biostratigraphic, pollen, regional",FALSE,FALSE
+"Biostratigraphic, pollen, Younger Dryas/Holocene",FALSE,FALSE
+Core bottom,FALSE,FALSE
+Core top,TRUE,FALSE
+"Core top, estimated",TRUE,FALSE
+Geologic time-scale boundary,FALSE,FALSE
+Interpolated,FALSE,FALSE
+Radiocarbon,TRUE,TRUE
+"Radiocarbon, average of two or more dates",TRUE,TRUE
+"Radiocarbon, calibrated",TRUE,FALSE
+"Radiocarbon, reservoir correction",TRUE,TRUE
+Stratigraphic,FALSE,FALSE
