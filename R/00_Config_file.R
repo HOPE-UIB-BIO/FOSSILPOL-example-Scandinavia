@@ -1,23 +1,23 @@
 #----------------------------------------------------------#
 #
 #
-#                 The FOSSILPOL workflow 
+#                 The FOSSILPOL workflow
 #
 #                     Config file
-#                 
 #
-#   O. Mottl, S. Flantua, K. Bhatta, V. Felde, A. Seddon 
+#
+#   O. Mottl, S. Flantua, K. Bhatta, V. Felde, A. Seddon
 #                         2021
 #
 #----------------------------------------------------------#
 
-# Configuration script with the variables that should be consistent throughout 
-#   the whole repo. It loads packages, defines important variables, 
+# Configuration script with the variables that should be consistent throughout
+#   the whole repo. It loads packages, defines important variables,
 #   authorises the user, and saves config file.
 
 # Version of the Workflow
-workflow_version <- 
-  "0.0.1" 
+workflow_version <-
+  "0.0.1"
 
 # set the current environment
 current_env <- environment()
@@ -26,46 +26,59 @@ current_env <- environment()
 # 1. Load packages -----
 #----------------------------------------------------------#
 
-if(!exists("update_repo_packages", envir = current_env)){
+if (
+  !exists("update_repo_packages", envir = current_env)
+) {
   update_repo_packages <- TRUE
 }
 
-if(update_repo_packages == TRUE){
-  
+if (
+  update_repo_packages == TRUE
+) {
+
   # install RFossilpol from github
-  if (!exists("already_installed_RFossilpol", envir = current_env)){
+  if (
+    !exists("already_installed_RFossilpol", envir = current_env)
+  ) {
     already_installed_RFossilpol <- FALSE
   }
-  
-  if(already_installed_RFossilpol == FALSE){
+
+  if (
+    already_installed_RFossilpol == FALSE
+  ) {
     devtools::install_github("HOPE-UIB-BIO/R-Fossilpol-package",
-                             quiet = FALSE,
-                             upgrade = FALSE)
+      quiet = FALSE,
+      upgrade = FALSE
+    )
     already_installed_RFossilpol <- TRUE
   }
-  
-  if (!exists("already_synch", envir = current_env)){
+
+  if (
+    !exists("already_synch", envir = current_env)
+  ) {
     already_synch <- FALSE
   }
-  
-  if(already_synch == FALSE){
+
+  if (
+    already_synch == FALSE
+  ) {
     library(here)
     # synchronise the package versions
-    renv::restore(lockfile = here::here( "renv/library_list.lock"))
+    renv::restore(lockfile = here::here("renv/library_list.lock"))
     already_synch <- TRUE
-    
+
     # save snapshot of package versions
     # renv::snapshot(lockfile =  "renv/library_list.lock")  # do only for update
   }
 }
 
 # define packages
-package_list <- 
+package_list <-
   c(
     "devtools",
     "Bchron",
     "RFossilpol",
-    "here",     
+    "here",
     "tidyverse"
   )
 
@@ -79,7 +92,7 @@ sapply(package_list, library, character.only = TRUE)
 
 current_date <- Sys.Date()
 
-# project directory is set up by 'here' package, Adjust if needed 
+# project directory is set up by 'here' package, Adjust if needed
 current_dir <- here::here()
 
 
@@ -88,16 +101,18 @@ current_dir <- here::here()
 #----------------------------------------------------------#
 
 # get vector of general functions
-fun_list <- 
+fun_list <-
   list.files(
     path = "R/Functions/",
     pattern = ".R",
-    recursive = TRUE) 
+    recursive = TRUE
+  )
 
 # source them
 sapply(
   paste0("R/Functions/", fun_list, sep = ""),
-  source)
+  source
+)
 
 
 #----------------------------------------------------------#
@@ -108,10 +123,10 @@ sapply(
 #   Default is in the current project
 data_storage_path <- current_dir # [USER]
 
-# create all essential folders 
+# create all essential folders
 RFossilpol::util_make_datastorage_folders(
-  dir = data_storage_path #[config_criteria]
-  )
+  dir = data_storage_path # [config_criteria]
+)
 
 
 #--------------------------------------------------#
@@ -119,22 +134,27 @@ RFossilpol::util_make_datastorage_folders(
 #--------------------------------------------------#
 
 # check the presence of dataset database and create it if necessary
-if("project_dataset_database.rds" %in%
-   list.files(
-     paste0(
-       data_storage_path, #[config_criteria]
-       "/Data/Personal_database_storage") ) == FALSE){
-  
+if (
+  "project_dataset_database.rds" %in%
+    list.files(
+      paste0(
+        data_storage_path, # [config_criteria]
+        "/Data/Personal_database_storage"
+      )
+    ) == FALSE
+) {
   project_dataset_database <-
     RFossilpol:::proj_db_class()
-  
+
   readr::write_rds(
     project_dataset_database,
-    paste0(data_storage_path, #[config_criteria]
-           "/Data/Personal_database_storage",
-           "/project_dataset_database.rds" ),
-    compress = "gz")
-  
+    paste0(
+      data_storage_path, # [config_criteria]
+      "/Data/Personal_database_storage",
+      "/project_dataset_database.rds"
+    ),
+    compress = "gz"
+  )
 }
 
 
@@ -147,7 +167,7 @@ if("project_dataset_database.rds" %in%
 #--------------------------------------------------#
 
 # Include/exclude Neotoma download in run
-dataset_type <- 'pollen'
+dataset_type <- "pollen"
 
 # Selected variable element (proxy)
 sel_var_element <- "pollen"
@@ -176,23 +196,26 @@ select_final_variables <- TRUE # [USER]
 
 
 #--------------------------------------------------#
-# 5.2. Chronology order  ----- 
+# 5.2. Chronology order  -----
 #--------------------------------------------------#
 
 # Selected and preferred order of age type of existing chronologies in Neotoma
-chron_order <- 
+chron_order <-
   tibble::tibble(
     order = seq(1, 6),
-    type = c("Varve years BP",
-             "Calibrated radiocarbon years BP",
-             "Calendar years BP",
-             "Radiocarbon years BP",
-             "Calendar years AD/BC",
-             NA))
+    type = c(
+      "Varve years BP",
+      "Calibrated radiocarbon years BP",
+      "Calendar years BP",
+      "Radiocarbon years BP",
+      "Calendar years AD/BC",
+      NA
+    )
+  )
 
 
 #--------------------------------------------------#
-# 5.5. Age depth models  ----- 
+# 5.5. Age depth models  -----
 #--------------------------------------------------#
 
 # Chronology needs to have at least X control points
@@ -212,7 +235,7 @@ guess_depth <- 10 # [USER]
 
 # bchron settings
 number_of_cores <- parallel::detectCores() - 1
-batch_size <-  number_of_cores * 3
+batch_size <- number_of_cores * 3
 set_seed <- 1234
 
 default_iteration <- 10e3
@@ -222,14 +245,14 @@ iteration_multiplier <- 5 # [USER]
 
 
 #--------------------------------------------------#
-# 5.6. Level filtering criteria  ----- 
+# 5.6. Level filtering criteria  -----
 #--------------------------------------------------#
 
 # criteria to filter out levels and sequences
 
 #----------------------------------------#
 
-# Pollen sums 
+# Pollen sums
 filter_by_pollen_sum <- TRUE # [USER]
 
 # each level at least X individual pollen gains
@@ -243,7 +266,7 @@ percentage_samples <- 75 # [USER]
 
 # Age limits
 #   Note that the actual ages have to specified per region, defined during the
-#   process of Workflow  
+#   process of Workflow
 filter_by_age_limit <- TRUE # [USER]
 
 #----------------------------------------#
@@ -258,7 +281,7 @@ maximum_age_extrapolation <- 3000 # [USER]
 
 # Beyond period of interest
 #   Note that the actual ages have to specified per region, defined during the
-#   process of Workflow 
+#   process of Workflow
 filter_by_interest_region <- TRUE # [USER]
 
 #----------------------------------------#
@@ -266,21 +289,21 @@ filter_by_interest_region <- TRUE # [USER]
 # Number of levels
 filter_by_number_of_levels <- TRUE # [USER]
 
-# at least X number levels within period of interest 
-min_n_levels <-  5  
+# at least X number levels within period of interest
+min_n_levels <- 5
 
 #----------------------------------------#
 
 # Additional setting
 
 # Should 95th age quantile be used for data filtration?
-#   This will result in more stable data assembly between different result 
+#   This will result in more stable data assembly between different result
 #   of AD modelling BUT require additional data preparation before analytical
 #   part
 use_age_quantiles <- FALSE # [USER]
 
 # Should all data filtration omit one additional level in the old period?
-#   This will result of "bookend" level, which can help to provide anchor 
+#   This will result of "bookend" level, which can help to provide anchor
 #   information after the period of interest
 use_bookend_level <- FALSE # [USER]
 
@@ -293,9 +316,9 @@ use_bookend_level <- FALSE # [USER]
 ggplot2::theme_set(ggplot2::theme_classic())
 
 # define general
-text_size = 16 # [USER]
-line_size = 0.1 # [USER]
-point_size = 1 # [USER]
+text_size <- 16 # [USER]
+line_size <- 0.1 # [USER]
+point_size <- 1 # [USER]
 
 # define output sizes
 image_width <- 30 # [USER]
@@ -312,10 +335,10 @@ col_gray_light <- "gray90"
 
 ## main colour
 col_orange_dark <- "#E17D00"
-col_orange_light <-"#ff9715"
+col_orange_light <- "#ff9715"
 
-##complementary
-col_compl_blue <-  "#00507B"
+## complementary
+col_compl_blue <- "#00507B"
 
 ## analogous
 col_ana_red <- "#FF2215"
@@ -353,4 +376,3 @@ palette_shades <-
 #----------------------------------------------------------#
 
 current_setting <- RFossilpol::util_extract_config_data()
-
