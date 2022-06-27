@@ -318,7 +318,7 @@ ggplot2::theme_set(ggplot2::theme_classic())
 # define general
 text_size <- 16 # [USER]
 line_size <- 0.1 # [USER]
-point_size <- 1 # [USER]
+point_size <- 3 # [USER]
 
 # define output sizes
 image_width <- 30 # [USER]

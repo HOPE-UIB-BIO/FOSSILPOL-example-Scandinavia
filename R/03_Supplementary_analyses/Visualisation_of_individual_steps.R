@@ -28,8 +28,8 @@ source(
 current_env <- environment()
 
 # install additional packages
-utils::install.packages("ggpubr")
-utils::install.packages("RColorBrewer")
+# utils::install.packages("ggpubr")
+# utils::install.packages("RColorBrewer")
 library(ggpubr)
 library(RColorBrewer)
 
@@ -39,7 +39,6 @@ map_res <- 0.1
 #----------------------------------------------------------#
 # 2. Neotoma data download -----
 #----------------------------------------------------------#
-
 
 # load the data
 neotoma_meta_samples <-
@@ -58,19 +57,30 @@ RFossilpol::util_check_if_loaded(
 )
 
 # referecne figure
-p0 <-
-  plot_map_of_data(
-    data_source = neotoma_meta_samples,
-    margin = map_margin,
-    text_size = text_size, # [config_criteria]
-    point_size = (point_size - 0.5), # [config_criteria]
-    point_alpha = 0.7,
-    line_size = line_size, # [config_criteria]
-    point_colour = col_gray_dark, # [config_criteria]
-    map_fill = col_gray_light, # [config_criteria]
-    map_border = col_gray_middle # [config_criteria]
-  )
-
+(
+  p0 <-
+    plot_map_of_data(
+      data_source = neotoma_meta_samples,
+      margin = map_margin,
+      text_size = text_size, # [config_criteria]
+      point_size = (point_size * 1.2), # [config_criteria]
+      point_alpha = 0.7,
+      line_size = line_size, # [config_criteria]
+      point_colour = col_gray_dark, # [config_criteria]
+      map_fill = col_gray_light, # [config_criteria]
+      map_border = col_gray_middle # [config_criteria]
+    ) +
+    ggplot2::geom_point(
+      size = point_size * 0.9,
+      alpha = 0.95,
+      colour = col_gray_middle
+    ) +
+    ggplot2::geom_point(
+      size = min(0.1, point_size * 0.5),
+      alpha = 1,
+      colour = col_gray_dark
+    )
+)
 
 (
   p1 <-
@@ -91,6 +101,11 @@ p0 <-
       fill = NA,
       colour = col_compl_blue, # [config_criteria]
       size = line_size
+    ) +
+    ggplot2::geom_point(
+      size = min(0.1, point_size * 0.5),
+      alpha = 1,
+      colour = col_gray_dark
     )
   # + ggplot2::ggtitle("Filter by geographical location")
 )
@@ -124,11 +139,13 @@ RFossilpol::util_check_if_loaded(
       colour = palette_shades[2], # [config_criteria],
       alpha = 0.7,
       size = point_size
+    ) +
+    ggplot2::geom_point(
+      size = min(0.1, point_size * 0.5),
+      alpha = 1,
+      colour = col_gray_dark
     )
-  # ggplot2::labs(
-  #   caption = paste("Number of datasets =", nrow(neotoma_processed))
-  # ) +
-  # ggplot2::ggtitle("Neotoma processed")
+  # + ggplot2::ggtitle("Neotoma processed")
 )
 
 
@@ -159,11 +176,13 @@ RFossilpol::util_check_if_loaded(
       colour = palette_shades[3], # [config_criteria],
       alpha = 0.7,
       size = point_size
+    ) +
+    ggplot2::geom_point(
+      size = min(0.1, point_size * 0.5),
+      alpha = 1,
+      colour = col_gray_dark
     )
-  # ggplot2::labs(
-  #   caption = paste("Number of datasets =", nrow(data_with_chronologies))
-  # ) +
-  # ggplot2::ggtitle("Data with chronologies")
+  # + ggplot2::ggtitle("Data with chronologies")
 )
 
 
@@ -195,11 +214,13 @@ RFossilpol::util_check_if_loaded(
       colour = palette_shades[4], # [config_criteria],
       alpha = 0.7,
       size = point_size
+    ) +
+    ggplot2::geom_point(
+      size = min(0.1, point_size * 0.5),
+      alpha = 1,
+      colour = col_gray_dark
     )
-  # ggplot2::labs(
-  #   caption = paste("Number of datasets =", nrow(data_assembly))
-  # ) +
-  # ggplot2::ggtitle("Filtered data")
+  # + ggplot2::ggtitle("Filtered data")
 )
 
 
