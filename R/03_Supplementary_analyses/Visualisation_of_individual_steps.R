@@ -415,6 +415,12 @@ biome_palette <-
       ggplot2::aes(col = wwf_biome),
       size = point_size
     ) +
+    ggplot2::geom_point(
+      data = data_assembly_wwf,
+      size = min(0.1, point_size * 0.5),
+      alpha = 1,
+      colour = col_gray_dark
+    ) +
     ggplot2::coord_quickmap(
       xlim = c(long_min, long_max),
       ylim = c(lat_min, lat_max)
@@ -443,6 +449,12 @@ biome_palette <-
   p7 <-
     data_assembly_wwf %>%
     dplyr::count(wwf_biome) %>%
+    dplyr::mutate(
+      wwf_biome_wrap = stringr::str_wrap(
+        wwf_biome,
+        width = 20
+      )
+    ) %>%
     ggplot2::ggplot(
       ggplot2::aes(
         x = forcats::fct_reorder(wwf_biome, -n),
@@ -456,11 +468,11 @@ biome_palette <-
       size = line_size
     ) +
     ggplot2::geom_text(
-      ggplot2::aes(label = wwf_biome),
+      ggplot2::aes(label = wwf_biome_wrap),
       angle = 90,
       hjust = 0,
       nudge_y = 2,
-      size = 2
+      size = text_size * 0.2
     ) +
     ggplot2::coord_cartesian(
       ylim = c(0, 80)
