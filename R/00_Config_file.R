@@ -17,7 +17,7 @@
 
 # Version of the Workflow
 workflow_version <-
-  "0.0.1"
+  "0.0.2"
 
 # set the current environment
 current_env <- environment()
@@ -27,57 +27,32 @@ current_env <- environment()
 #----------------------------------------------------------#
 
 if (
-  !exists("update_repo_packages", envir = current_env)
+  isFALSE(
+    exists("already_synch", envir = current_env)
+  )
 ) {
-  update_repo_packages <- TRUE
+  already_synch <- FALSE
 }
 
 if (
-  update_repo_packages == TRUE
+  isFALSE(already_synch)
 ) {
+  library(here)
+  # synchronise the package versions
+  renv::restore(
+    lockfile = here::here("renv/library_list.lock")
+  )
+  already_synch <- TRUE
 
-  # install RFossilpol from github
-  if (
-    !exists("already_installed_RFossilpol", envir = current_env)
-  ) {
-    already_installed_RFossilpol <- FALSE
-  }
-
-  if (
-    already_installed_RFossilpol == FALSE
-  ) {
-    devtools::install_github("HOPE-UIB-BIO/R-Fossilpol-package",
-      quiet = FALSE,
-      upgrade = FALSE
-    )
-    already_installed_RFossilpol <- TRUE
-  }
-
-  if (
-    !exists("already_synch", envir = current_env)
-  ) {
-    already_synch <- FALSE
-  }
-
-  if (
-    already_synch == FALSE
-  ) {
-    library(here)
-    # synchronise the package versions
-    renv::restore(lockfile = here::here("renv/library_list.lock"))
-    already_synch <- TRUE
-
-    # save snapshot of package versions
-    # renv::snapshot(lockfile =  "renv/library_list.lock")  # do only for update
-  }
+  # save snapshot of package versions
+  # renv::snapshot(lockfile =  "renv/library_list.lock")  # do only for update
 }
 
 # define packages
 package_list <-
   c(
-    "devtools",
-    "Bchron",
     "RFossilpol",
+    "RUtilpol",
     "here",
     "tidyverse"
   )
@@ -104,7 +79,7 @@ current_dir <- here::here()
 fun_list <-
   list.files(
     path = "R/Functions/",
-    pattern = ".R",
+    pattern = "*.R",
     recursive = TRUE
   )
 
@@ -135,13 +110,15 @@ RFossilpol::util_make_datastorage_folders(
 
 # check the presence of dataset database and create it if necessary
 if (
-  "project_dataset_database.rds" %in%
-    list.files(
-      paste0(
-        data_storage_path, # [config_criteria]
-        "/Data/Personal_database_storage"
+  isFALSE(
+    "project_dataset_database.rds" %in%
+      list.files(
+        paste0(
+          data_storage_path, # [config_criteria]
+          "/Data/Personal_database_storage"
+        )
       )
-    ) == FALSE
+  )
 ) {
   project_dataset_database <-
     RFossilpol:::proj_db_class()
@@ -182,8 +159,8 @@ alt_max <- NA # [USER]
 
 neotoma_new_download <- TRUE
 
-# define access to private datasets
-private_data <- FALSE # [USER]
+# define access to other datasets
+use_other_datasource <- FALSE # [USER]
 detect_duplicates <- TRUE # [USER]
 
 # Include/exclude age modelling in run
@@ -248,7 +225,7 @@ iteration_multiplier <- 5 # [USER]
 # 5.6. Level filtering criteria  -----
 #--------------------------------------------------#
 
-# criteria to filter out levels and sequences
+# criteria to filter out levels and records
 
 #----------------------------------------#
 
@@ -313,7 +290,9 @@ use_bookend_level <- FALSE # [USER]
 #----------------------------------------------------------#
 
 # set ggplot output
-ggplot2::theme_set(ggplot2::theme_classic())
+ggplot2::theme_set(
+  ggplot2::theme_classic()
+)
 
 # define general
 text_size <- 16 # [USER]
@@ -328,7 +307,6 @@ image_dpi <- 300 # [USER]
 
 
 # define common colours
-
 col_gray_dark <- "gray30"
 col_gray_middle <- "gray50"
 col_gray_light <- "gray90"
@@ -371,8 +349,10 @@ palette_shades <-
     "#FF9715"
   )
 
+
 #----------------------------------------------------------#
 # 7. Save current config setting -----
 #----------------------------------------------------------#
 
-current_setting <- RFossilpol::util_extract_config_data()
+current_setting <-
+  RFossilpol::util_extract_config_data()

@@ -12,7 +12,7 @@
 #----------------------------------------------------------#
 
 # - Load the newest version of processed datasets from Neotoma
-# and private sources.
+# and other sources.
 # - Detect site duplicates among datasets.
 # - Sort levels
 # - Assign values based on geography.
@@ -37,7 +37,7 @@ source(
 data_full <-
   RFossilpol::proc_get_merged_dataset(
     data_storage_path, # [config_criteria]
-    private_data
+    use_other_datasource
   )
 
 
@@ -45,9 +45,9 @@ data_full <-
 # 4. Detect duplicates  -----
 #----------------------------------------------------------#
 
-# test for potential duplicated sequences between private data and Neotoma
+# test for potential duplicated records between other data and Neotoma
 if (
-  detect_duplicates == TRUE && private_data == TRUE # [config_criteria]
+  isTRUE(detect_duplicates) && isTRUE(use_other_datasource) # [config_criteria]
 ) {
   data_full_filtered <-
     RFossilpol::proc_filter_out_duplicates(
@@ -77,7 +77,8 @@ user_name_patterns <- NULL
 data_clean_names <-
   RFossilpol::proc_clean_count_names(
     data_source = data_full_filtered,
-    additional_patterns = user_name_patterns
+    additional_patterns = user_name_patterns,
+    dir = data_storage_path # [config_criteria]
   )
 
 
@@ -113,13 +114,12 @@ optional_info_to_assign <-
 
     ## Here is a space for user to add any additional information
 
-    # example of WWF biomes
+    ## example of WWF biomes
     "wwf_biome",
     "shapefile",
     paste0(current_dir, "/Data/Input/Spatial/Biomes_shapefile/WWF"),
     "wwf_terr_biomes",
     "BIOM_NAME"
-
 
     ## General shapefile example
     # "SELECTED NAME X",
@@ -159,15 +159,16 @@ data_merged <-
 # 13. Save -----
 #----------------------------------------------------------#
 
-RFossilpol::util_output_comment(
+RUtilpol::output_comment(
   msg = "Saving the data"
 )
 
-RFossilpol::util_save_if_latests(
-  file_name = "data_merged",
+RUtilpol::save_latest_file(
+  object_to_save = data_merged,
   dir = paste0(
     data_storage_path, # [config criteria]
     "/Data/Processed/Data_merged"
   ),
-  prefered_format = "rds"
+  prefered_format = "rds",
+  use_sha = TRUE
 )
