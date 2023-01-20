@@ -9,6 +9,7 @@ Core top,TRUE,FALSE
 "Core top, estimated",TRUE,FALSE
 Geologic time-scale boundary,FALSE,FALSE
 Interpolated,FALSE,FALSE
+Lead-210,TRUE,FALSE
 Radiocarbon,TRUE,TRUE
 "Radiocarbon, average of two or more dates",TRUE,TRUE
 "Radiocarbon, calibrated",TRUE,FALSE
