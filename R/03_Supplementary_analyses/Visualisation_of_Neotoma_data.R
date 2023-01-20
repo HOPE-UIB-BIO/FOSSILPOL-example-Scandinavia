@@ -181,14 +181,14 @@ dat_geo <-
     ggplot2::labs(
       x = "Longitude",
       y = "Latitude",
-      fill = "The number of sequences \nper 3 degrees"
+      fill = "The number of records \nper 3°x3°"
     ) +
     ggplot2::theme_classic() +
     ggplot2::theme(
       legend.direction = "horizontal",
       legend.position = "bottom",
       text = ggplot2::element_text(size = text_size),
-      line = ggplot2::element_line(size = line_size)
+      line = ggplot2::element_line(linewidth = line_size)
     )
 )
 
@@ -260,7 +260,7 @@ bin_palette_temp <-
     ggplot2::aes(fill = as.factor(N)),
     stat = "identity",
     colour = col_gray_dark,
-    size = line_size
+    linewidth = line_size
   ) +
   ggplot2::scale_x_continuous(
     breaks = time_bins_counts$row_n,
@@ -271,13 +271,13 @@ bin_palette_temp <-
   ) +
   ggplot2::labs(
     x = "Age (cal yr BP)",
-    y = "Number of sequences \npresented in the time period"
+    y = "Number of records \npresented in the time period"
   ) +
   ggplot2::theme_classic() +
   ggplot2::theme(
     legend.position = "none",
     text = ggplot2::element_text(size = text_size),
-    line = ggplot2::element_line(size = line_size),
+    line = ggplot2::element_line(linewidth = line_size),
     axis.text.x = ggplot2::element_text(
       size = text_size * 0.75,
       angle = 90,
