@@ -96,8 +96,8 @@
       "RemoteRepo": "R-Fossilpol-package",
       "RemoteUsername": "HOPE-UIB-BIO",
       "RemoteRef": "0.0.2",
-      "RemoteSha": "0d6e2f6027f4a4e6cf290b5cf88bafe23c3504f6",
-      "Hash": "20ce68c0662d1e2eef51b69f62adea24"
+      "RemoteSha": "ca76bd7d79aae6ba0f9f4273446eec24b373f3a6",
+      "Hash": "39a8e8f4fdd7041836bc4810eb5b3756"
     },
     "RUtilpol": {
       "Package": "RUtilpol",
