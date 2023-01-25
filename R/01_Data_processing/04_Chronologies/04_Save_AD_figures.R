@@ -1,7 +1,7 @@
 #----------------------------------------------------------#
 #
 #
-#                 The FOSSILPOL workflow
+#           Fossil pollen data from Scandinavia
 #
 #               Save figures of age-depth model
 #
