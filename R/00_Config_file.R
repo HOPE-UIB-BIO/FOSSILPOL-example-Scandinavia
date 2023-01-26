@@ -263,7 +263,7 @@ filter_by_interest_region <- TRUE # [USER]
 # Number of stratigraphic levels
 filter_by_number_of_levels <- TRUE # [USER]
 
-# St least X number stratigraphic levels within the period
+# At least X number of stratigraphic levels within the period
 #   of interest [example: X=3]
 min_n_levels <- 5
 
@@ -312,22 +312,22 @@ image_units <- "cm" # [USER]
 image_dpi <- 300 # [USER]
 
 
-# define common colours
+# Define common colours
 col_gray_dark <- "gray30"
 col_gray_middle <- "gray50"
 col_gray_light <- "gray90"
 
-## main colour
+## Main colour
 col_orange_dark <- "#E17D00"
 col_orange_light <- "#ff9715"
 
-## complementary
+## Complementary
 col_compl_blue <- "#00507B"
 
-## analogous
+## Analogous
 col_ana_red <- "#FF2215"
 
-# define pallets
+# Define pallets
 palette_generic <-
   c(
     "#FF9715",
