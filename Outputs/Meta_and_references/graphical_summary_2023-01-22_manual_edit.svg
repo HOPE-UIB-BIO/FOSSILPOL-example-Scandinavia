@@ -75,15 +75,15 @@
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
      showgrid="false"
-     inkscape:zoom="1.6523851"
-     inkscape:cx="377.03075"
-     inkscape:cy="226.94467"
+     inkscape:zoom="1.1684127"
+     inkscape:cx="207.1186"
+     inkscape:cy="255.90273"
      inkscape:window-width="1920"
      inkscape:window-height="1009"
-     inkscape:window-x="-8"
+     inkscape:window-x="1912"
      inkscape:window-y="-8"
      inkscape:window-maximized="1"
-     inkscape:current-layer="g2780">
+     inkscape:current-layer="g7656">
     <inkscape:page
        x="0"
        y="0"
@@ -9343,10 +9343,10 @@
          transform="matrix(1,0,0,-1,103.23,18.45)"
          style="font-variant:normal;font-weight:normal;font-size:12px;font-family:Helvetica;-inkscape-font-specification:Helvetica;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
          id="text7660"><tspan
-           x="0 8.6639996 17.327999 27.336 34.007999 36.672001 43.344002 53.34"
-           y="0"
            sodipodi:role="line"
-           id="tspan7658">wwfbiome</tspan></text>
+           id="tspan7658"
+           x="0"
+           y="0">WWF biome</tspan></text>
     </g>
     <g
        id="g7662" />
