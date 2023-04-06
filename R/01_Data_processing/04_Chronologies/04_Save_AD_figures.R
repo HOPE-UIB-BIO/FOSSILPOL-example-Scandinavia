@@ -1,7 +1,7 @@
 #----------------------------------------------------------#
 #
 #
-#                 The FOSSILPOL workflow
+#           Fossil pollen data from Scandinavia
 #
 #               Save figures of age-depth model
 #
@@ -24,7 +24,7 @@ source(
   here::here("R/00_Config_file.R")
 )
 
-RFossilpol::util_output_message(
+RUtilpol::output_heading(
   msg = "Saving all Chronology models as figures"
 )
 

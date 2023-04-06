@@ -1,7 +1,7 @@
 #----------------------------------------------------------#
 #
 #
-#                 The FOSSILPOL workflow
+#           Fossil pollen data from Scandinavia
 #
 #           Source all code for data processing steps
 #
@@ -40,13 +40,13 @@ source(
 )
 
 if (
-  private_data == TRUE
+  isTRUE(use_other_datasource)
 ) {
   source(
     paste0(
       current_dir,
       "/R/01_Data_processing/",
-      "02_Private_source/Run_01_02.R"
+      "02_Other_source/Run_01_02.R"
     )
   )
 }

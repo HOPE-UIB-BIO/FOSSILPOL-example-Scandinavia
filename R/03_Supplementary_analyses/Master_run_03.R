@@ -22,10 +22,12 @@
 # 1. Set up run -----
 #----------------------------------------------------------#
 
-rm(list = ls())
+library(here)
 
 # Load configuration
-source("R/00_Config_file.R")
+source(
+  here::here("R/00_Config_file.R")
+)
 
 
 #----------------------------------------------------------#

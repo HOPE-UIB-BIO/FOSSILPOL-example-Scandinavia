@@ -1,7 +1,7 @@
 #----------------------------------------------------------#
 #
 #
-#                 The FOSSILPOL workflow
+#           Fossil pollen data from Scandinavia
 #
 #           Prepare the chronology control tables
 #
@@ -13,7 +13,7 @@
 
 #  Prepare the chronology tables for age-depth modelling. Create the necessary
 #   calibration curves. Restructure chronology tables to fit Bchron package.
-#    Fix issues with percentage carbon and assign post-bomb curve if necessary.
+#   Fix issues with percentage carbon and assign post-bomb curve if necessary.
 
 
 #----------------------------------------------------------#
@@ -30,7 +30,7 @@ source(
 # set the current environment
 current_env <- rlang::current_env()
 
-RFossilpol::util_output_message(
+RUtilpol::output_heading(
   msg = "Starting preparing chronology control tables for AD modeling"
 )
 
@@ -44,7 +44,7 @@ RFossilpol::chron_prepare_cal_curves()
 
 # load data
 data_merged <-
-  RFossilpol::util_load_latest_file(
+  RUtilpol::get_latest_file(
     file_name = "data_merged",
     dir = paste0(
       data_storage_path, # [config_criteria]
@@ -53,7 +53,7 @@ data_merged <-
   )
 
 # test the presence of data
-RFossilpol::util_check_if_loaded(
+RUtilpol::check_if_loaded(
   file_name = "data_merged",
   env = current_env
 )
@@ -74,11 +74,12 @@ chron_control_tables <-
 #----------------------------------------------------------#
 
 chron_control_tables_subset <-
-  RFossilpol::chron_subset_previous_sequences(
+  RFossilpol::chron_subset_previous_records(
     data_source = chron_control_tables,
     dir = data_storage_path, # [config_criteria]
     rerun_ad = calc_AD_models_denovo, # [config_criteria]
-    # [USER] here can user specify which dataset_ids should be re-run additionally
+    # [USER] here can user specify which dataset_ids should be
+    #   re-run additionally
     sites_to_rerun = c()
   )
 
@@ -115,10 +116,12 @@ chron_tables_prepared <-
 # 7. Save the data  -----
 #----------------------------------------------------------#
 
-RFossilpol::util_save_if_latests(
-  file_name = "chron_tables_prepared",
+RUtilpol::save_latest_file(
+  object_to_save = chron_tables_prepared,
   dir = paste0(
     data_storage_path, # [config_criteria]
     "/Data/Processed/Chronology/Chron_tables_prepared"
-  )
+  ),
+  prefered_format = "rds",
+  use_sha = TRUE
 )
