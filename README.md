@@ -1,4 +1,4 @@
-# FOSSILPOL: Scandinavia example<img src="README_figures/fossilpol_logo.png" align="right" width="200" />
+# FOSSILPOL: Scandinavia example<img src="https://hope-uib-bio.github.io/FOSSILPOL-website/figures/Logo%20FOSSILPOL%20big%20-%20600ppi.png" align="right" width="200" />
 
 This repo is a part of the **FOSSILPOL** project. Learn more about the project on the [project websites](https://hope-uib-bio.github.io/FOSSILPOL-website/)
 
