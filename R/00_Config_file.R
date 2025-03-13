@@ -19,7 +19,7 @@
 
 # Version of the Workflow
 workflow_version <-
-  "0.0.2"
+  "1.0.2"
 
 # Set the current environment
 current_env <- environment()
@@ -40,6 +40,7 @@ if (
   isFALSE(already_synch)
 ) {
   library(here)
+  library(renv)
   # Synchronise the package versions
   renv::restore(
     lockfile = here::here("renv/library_list.lock")
@@ -93,11 +94,15 @@ fun_list <-
     recursive = TRUE
   )
 
-# Load the function into the global environment
-sapply(
-  paste0("R/Functions/", fun_list, sep = ""),
-  source
-)
+# source them
+if (
+  length(fun_list) > 0
+) {
+  sapply(
+    paste0("R/Functions/", fun_list, sep = ""),
+    source
+  )
+}
 
 
 #--------------------------------------------------#
