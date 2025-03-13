@@ -1,0 +1,68 @@
+---
+format: 
+  revealjs:
+    slide-number: true
+    theme: [default, custom_theme.scss]
+    preview-links: auto
+    output-file: "index"
+    output-ext: "html"
+    code-line-numbers: true
+    code-overflow: wrap
+    embed-resources: true
+---
+
+```{r}
+#| label: setup
+#| include: false
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(
+  fig.width = 7,
+  fig.height = 5,
+  fig.align = "center",
+  out.width = "100%"
+)
+
+include_local_figure <- function(data_source) {
+  knitr::include_graphics(
+    path = here::here(
+      "Presentation/Materials",
+      data_source
+    ),
+    error = TRUE
+  )
+}
+
+library(here)
+
+here::i_am("presentation.qmd")
+
+```
+
+# {data-background-image="./Presentation/Materials/Lecture series-Spring25.png" background-size="900px" background-repeat="no-repeat"}
+
+# [FOSSILPOL]{.text-bold .r-fit-text} {.title}
+
+[Scandinavian example]{.text-bold .r-fit-text}
+
+<br>
+
+ 
+Ondřej Mottl[🔗](https://ondrejmottl.github.io/)
+
+27.3.2025
+
+## [This presentation]{.bold .r-fit-text} {.title}
+
+:::: columns
+::: {.column width="50%"}
+[😸 Code on GitHub](https://github.com/HOPE-UIB-BIO/FOSSILPOL-example-Scandinavia/)
+:::
+
+::: {.column width="50%"}
+[🖥️ Slides](https://hope-uib-bio.github.io/FOSSILPOL-example-Scandinavia/)
+:::
+::::
+
+[![](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+Author: [Ondrej Mottl](https://ondrejmottl.github.io/)

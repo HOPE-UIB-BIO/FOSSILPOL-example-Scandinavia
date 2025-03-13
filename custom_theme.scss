@@ -1,0 +1,267 @@
+/*-- scss:defaults --*/
+
+@font-face {
+  font-family: "Inconsolata" !important;
+  src: local("Fonts/Inconsolata.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Tahoma" !important;
+  src: local("Fonts/Tahoma.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+// Vertical spacing between blocks of text
+$smallMargin: 5px;
+$blockMargin: 10px;
+$largeMargin: 20px;
+
+$white: #ffffff !default;
+$black: #000000 !default;
+$grey: #cccccc !default;
+$blue: #415280 !default;
+$purple: #8a5697 !default;
+$pink: #d55288 !default;
+$coral: #eb5f56 !default;
+$orange: #ff9714 !default;
+$green: #6c6934 !default;
+
+.text-color-white {
+  color: $white !important;
+}
+
+.text-background-grey {
+  background-color: $grey;
+  color: $black;
+  padding: $smallMargin;
+  border-radius: 5px;
+}
+
+.text-background-blue {
+  background-color: $blue;
+  color: $white;
+  padding: $smallMargin;
+  border-radius: 5px;
+}
+
+.text-background-purple {
+  background-color: $purple;
+  color: $white;
+  padding: $smallMargin;
+  border-radius: 5px;
+}
+
+.text-background-pink {
+  background-color: $pink;
+  color: $white;
+  padding: $smallMargin;
+  border-radius: 5px;
+}
+
+.text-background-coral {
+  background-color: $coral;
+  color: $white;
+  padding: $smallMargin;
+  border-radius: 5px;
+}
+
+.text-background-orange {
+  background-color: $orange;
+  color: $white;
+  padding: $smallMargin;
+  border-radius: 5px;
+}
+
+.text-background-green {
+  background-color: $green;
+  color: $white;
+  padding: $smallMargin;
+  border-radius: 5px;
+}
+
+$body-color: $black;
+$backgroundColor: $white;
+
+// Typography
+$mainFont: "Inconsolata" !default;
+$mainFontSize: 30px;
+$body-line-height: 1.5;
+
+$headdingMargin: 0;
+$headingFont: "Tahoma" !default;
+$headingLineHeight: 1.2;
+$headingLetterSpacing: normal;
+$headingTextShadow: none;
+$headingFontWeight: bold;
+
+$heading1Size: 3.77em;
+$heading2Size: 2.11em;
+$heading3Size: 1.55em;
+$heading4Size: 1.0em;
+
+.text-bold {
+  font-weight: bold;
+}
+
+.text-center {
+  text-align: center;
+}
+
+// Layout
+$content-max-width: 900px;
+
+/*-- scss:rules --*/
+
+/* General text styling */
+body {
+  font-family: $mainFont;
+  font-size: $mainFontSize;
+  line-height: $body-line-height;
+  color: $body-color;
+  background-color: $backgroundColor;
+}
+
+a {
+  color: $green !important;
+  text-decoration: underline !important;
+
+  &:hover {
+    color: $white !important;
+    background-color: $green !important;
+  }
+}
+
+/* Headings */
+h1 {
+  font-family: $headingFont;
+  font-size: $heading1Size;
+  line-height: $headingLineHeight;
+  letter-spacing: $headingLetterSpacing;
+  font-weight: $headingFontWeight;
+  margin-top: 0;
+  text-shadow: 3px 4px 5px $grey;
+}
+
+h2 {
+  font-family: $headingFont;
+  font-size: $heading2Size;
+  line-height: $headingLineHeight;
+  letter-spacing: $headingLetterSpacing;
+  font-weight: $headingFontWeight;
+  margin: 0;
+}
+
+h3 {
+  font-family: $headingFont;
+  font-size: $heading3Size;
+  line-height: $headingLineHeight;
+  letter-spacing: $headingLetterSpacing;
+  font-weight: $headingFontWeight;
+  margin: 0;
+}
+
+h4 {
+  font-family: $headingFont;
+  font-size: $heading4Size;
+  line-height: $headingLineHeight;
+  letter-spacing: $headingLetterSpacing;
+  font-weight: $headingFontWeight;
+  margin: 0;
+}
+
+
+/* Code block */
+pre,
+code {
+  background-color: $grey !important;
+  color: $black;
+  padding: $smallMargin;
+  border-radius: 5px;
+}
+
+pre {
+  overflow: auto;
+  padding: $smallMargin;
+}
+
+code {
+  background-color: $grey !important;
+  padding: 0;
+}
+
+pre code {
+  background-color: transparent !important;
+  padding: $smallMargin;
+}
+
+pre a,
+code a {
+  color: $green !important;
+  text-decoration: underline !important;
+
+  &:hover {
+    color: $white !important;
+    background-color: $green !important;
+  }
+}
+
+/* List styling */
+ul {
+  padding-left: $largeMargin;
+  margin-left: $largeMargin;
+}
+
+ul ul {
+  padding-left: $largeMargin;
+  margin-left: $largeMargin;
+}
+
+/* Slide content layout */
+.reveal .slides {
+  max-width: $content-max-width;
+  margin: auto;
+  padding: 0 $smallMargin;
+}
+
+/* Constrain figures and other large block elements */
+.reveal .slides img,
+.reveal .slides figure,
+.reveal .slides video,
+.reveal .slides .reveal-image {
+  max-width: 100%;
+  width: auto;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+/* Specialised sections */
+.reveal .title {
+  background-color: $purple;
+  color: $white;
+  text-align: center;
+}
+
+.reveal .inverse {
+  color: $backgroundColor;
+  background-color: $body-color;
+}
+
+/* Blockquote */
+.reveal .blockquote {
+  font-style: italic;
+  border-left: 6px solid $orange;
+  padding: $smallMargin;
+  border-radius: 25px;
+  border-top: 3px solid $grey;
+  border-bottom: 3px solid $grey;
+  border-right: 3px solid $grey;
+  background-color: $white;
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s ease;
+}
