@@ -110,6 +110,43 @@ $heading4Size: 1.0em;
   text-align: center;
 }
 
+.text-left {
+  text-align: left;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.text-color-darker {
+  filter: brightness(50%);
+}
+
+.text-color-brigher {
+  filter: brightness(250%);
+}
+
+.text-grey {
+  color: $grey;
+}
+
+.text-smaller {
+  font-size: $mainFontSize * 0.7;
+}
+
+.text-larger {
+  font-size: $mainFontSize * 1.3;
+}
+
+.center-vertical {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+
 // Layout
 $content-max-width: 900px;
 
@@ -240,22 +277,15 @@ ul ul {
 }
 
 /* Specialised sections */
-.reveal .title {
-  background-color: $purple;
+.reveal .bg-black {
+  background-color: $black;
   color: $white;
-  text-align: center;
-}
-
-.reveal .inverse {
-  color: $backgroundColor;
-  background-color: $body-color;
 }
 
 /* Blockquote */
 .reveal .blockquote {
-  font-style: italic;
-  border-left: 6px solid $orange;
   padding: $smallMargin;
+  border-left: 3px solid $grey;
   border-radius: 25px;
   border-top: 3px solid $grey;
   border-bottom: 3px solid $grey;
