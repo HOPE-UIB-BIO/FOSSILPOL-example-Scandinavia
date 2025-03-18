@@ -40,3 +40,6 @@ vignettes/*.pdf
 
 # Quarto
 /.quarto/
+
+# all raw SVG files
+*.svg
