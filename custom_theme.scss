@@ -111,7 +111,6 @@ $headdingMargin: 0;
 $headingFont: "Tahoma" !default;
 $headingLineHeight: 1.2;
 $headingLetterSpacing: normal;
-$headingTextShadow: none;
 $headingFontWeight: bold;
 
 $heading1Size: 3.77em;
@@ -199,7 +198,7 @@ h1 {
   line-height: $headingLineHeight;
   letter-spacing: $headingLetterSpacing;
   font-weight: $headingFontWeight;
-  margin-top: 0;
+  margin: $headdingMargin;
   text-shadow: 3px 4px 5px $grey;
 }
 
@@ -209,7 +208,8 @@ h2 {
   line-height: $headingLineHeight;
   letter-spacing: $headingLetterSpacing;
   font-weight: $headingFontWeight;
-  margin: 0;
+  margin: $headdingMargin;
+  text-shadow: 3px 4px 5px $grey;
 }
 
 h3 {
@@ -218,7 +218,7 @@ h3 {
   line-height: $headingLineHeight;
   letter-spacing: $headingLetterSpacing;
   font-weight: $headingFontWeight;
-  margin: 0;
+  margin: $headdingMargin;
 }
 
 h4 {
@@ -227,7 +227,7 @@ h4 {
   line-height: $headingLineHeight;
   letter-spacing: $headingLetterSpacing;
   font-weight: $headingFontWeight;
-  margin: 0;
+  margin: $headdingMargin;
 }
 
 
