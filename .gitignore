@@ -37,3 +37,9 @@ vignettes/*.pdf
 
 # R Environment Variables
 .Renviron
+
+# Quarto
+/.quarto/
+
+# all raw SVG files
+*.svg
