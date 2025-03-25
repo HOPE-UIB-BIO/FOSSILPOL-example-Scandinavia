@@ -20,7 +20,9 @@ format:
 options(htmltools.dir.version = FALSE)
 knitr::opts_chunk$set(
   fig.align = "center",
-  out.width = "100%"
+  out.width = "100%",
+  dpi = 300,
+  fig.align = "center"
 )
 
 include_local_figure <- function(data_source) {
@@ -39,7 +41,12 @@ here::i_am("Presentation/presentation.qmd")
 
 ```
 
-# {data-background-image="../Presentation/Materials/Lecture series-Spring25.png" background-size="900px" background-repeat="no-repeat"}
+# 
+
+```{r}
+#| label: lecture_intro
+include_local_figure("Lecture series-Spring25.png")
+```
 
 # 
 
@@ -244,6 +251,8 @@ Image created by Bing
 
 ```{r}
 #| label: fp_scheme 1
+#| out.height: 100%
+#| out.width: NULL
 include_local_figure("Visualisation-fossilpollen_extraction/scheme_1.png")
 ```
 
@@ -257,6 +266,8 @@ Artwork by Milan Teunissen van Manen (@MilanTvM).
 
 ```{r}
 #| label: fp_scheme 2
+#| out.height: 100%
+#| out.width: NULL
 include_local_figure("Visualisation-fossilpollen_extraction/scheme_2.png")
 ```
 
@@ -270,6 +281,8 @@ Artwork by Milan Teunissen van Manen (@MilanTvM).
 
 ```{r}
 #| label: fp_scheme 3
+#| out.height: 100%
+#| out.width: NULL
 include_local_figure("Visualisation-fossilpollen_extraction/scheme_3.png")
 ```
 
@@ -283,6 +296,8 @@ Artwork by Milan Teunissen van Manen (@MilanTvM).
 
 ```{r}
 #| label: fp_scheme full
+#| out.height: 100%
+#| out.width: NULL
 include_local_figure("Visualisation-fossilpollen_extraction/scheme_full.png")
 ```
 
@@ -484,6 +499,8 @@ Image by Damir K. from Pexels
 
 ```{r}
 #| label: workflow full
+#| out.height: 100%
+#| out.width: NULL
 include_local_figure("Visualisation-workflow/workflow_full.png")
 ```
 
@@ -493,6 +510,8 @@ include_local_figure("Visualisation-workflow/workflow_full.png")
 
 ```{r}
 #| label: workflow_clean
+#| out.height: 100%
+#| out.width: NULL
 include_local_figure("Visualisation-workflow/workflow_clean.png")
 ```
 
@@ -502,6 +521,8 @@ include_local_figure("Visualisation-workflow/workflow_clean.png")
 
 ```{r}
 #| label: workflow_0
+#| out.height: 100%
+#| out.width: NULL
 include_local_figure("Visualisation-workflow/workflow_0.png")
 ```
 
@@ -552,6 +573,8 @@ Image created by Bing
 
 ```{r}
 #| label: workflow_0b
+#| out.height: 100%
+#| out.width: NULL
 include_local_figure("Visualisation-workflow/workflow_0.png")
 ```
 
@@ -562,6 +585,8 @@ include_local_figure("Visualisation-workflow/workflow_0.png")
 
 ```{r}
 #| label: workflow_1
+#| out.height: 100%
+#| out.width: NULL
 include_local_figure("Visualisation-workflow/workflow_1.png")
 ```
 
@@ -604,6 +629,8 @@ include_local_figure("R_generated/sc_map_sourcing.png")
 
 ```{r}
 #| label: workflow_2
+#| out.height: 100%
+#| out.width: NULL
 include_local_figure("Visualisation-workflow/workflow_2.png")
 ```
 
@@ -613,6 +640,8 @@ include_local_figure("Visualisation-workflow/workflow_2.png")
 
 ```{r}
 #| label: workflow_3
+#| out.height: 100%
+#| out.width: NULL
 include_local_figure("Visualisation-workflow/workflow_3.png")
 ```
 
@@ -662,6 +691,8 @@ include_local_figure("R_generated/sc_map_chronologies.png")
 
 ```{r}
 #| label: workflow_4
+#| out.height: 100%
+#| out.width: NULL
 include_local_figure("Visualisation-workflow/workflow_4.png")
 ```
 
@@ -669,6 +700,8 @@ include_local_figure("Visualisation-workflow/workflow_4.png")
 
 ```{r}
 #| label: workflow_5
+#| out.height: 100%
+#| out.width: NULL
 include_local_figure("Visualisation-workflow/workflow_5.png")
 ```
 
@@ -743,6 +776,8 @@ Flower icons created by Smashicons - Flaticon
 
 ```{r}
 #| label: workflow_6
+#| out.height: 100%
+#| out.width: NULL
 include_local_figure("Visualisation-workflow/workflow_6.png")
 ```
 
@@ -750,6 +785,8 @@ include_local_figure("Visualisation-workflow/workflow_6.png")
 
 ```{r}
 #| label: workflow_7
+#| out.height: 100%
+#| out.width: NULL
 include_local_figure("Visualisation-workflow/workflow_7.png")
 ```
 
@@ -804,6 +841,8 @@ include_local_figure("R_generated/sc_map_increase_quality.png")
 
 ```{r}
 #| label: workflow_8
+#| out.height: 100%
+#| out.width: NULL
 include_local_figure("Visualisation-workflow/workflow_8.png")
 ```
 
@@ -811,6 +850,8 @@ include_local_figure("Visualisation-workflow/workflow_8.png")
 
 ```{r}
 #| label: workflow_fullb
+#| out.height: 100%
+#| out.width: NULL
 include_local_figure("Visualisation-workflow/workflow_full.png")
 ```
 
