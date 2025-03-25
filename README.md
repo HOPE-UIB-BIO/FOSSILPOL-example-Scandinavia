@@ -1,4 +1,11 @@
-# FOSSILPOL: Scandinavia example<img src="https://hope-uib-bio.github.io/FOSSILPOL-website/figures/Logo%20FOSSILPOL%20big%20-%20600ppi.png" align="right" width="200" />
+# FOSSILPOL: Scandinavia example<img src="https://hope-uib-bio.github.io/FOSSILPOL-website/figures/Logo%20FOSSILPOL%20regular%20-%20600ppi.png" align="right" width="200" />
+
+
+⚠️ **This branch is used as an example of NOT finished workflow for demonstration purposes only.** ⚠️
+
+Please switch to the [`main` branch](https://github.com/HOPE-UIB-BIO/FOSSILPOL-example-Scandinavia/tree/main) to see the final version of the workflow.
+
+-----
 
 This repo is a part of the **FOSSILPOL** project. Learn more about the project on the [project websites](https://hope-uib-bio.github.io/FOSSILPOL-website/)
 
